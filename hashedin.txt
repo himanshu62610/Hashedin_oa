@@ -1,0 +1,44 @@
+products=[];
+
+def addProducts(product):
+    products.append(product);
+  
+def filterProducts(filters):
+    result=[];
+    
+    for product in products:
+        match=True
+        
+        if "category" in filters and product.get("category")!=filters["category"]:
+            match=False;
+            
+        if "brand" in filters and product.get("brand")!=filters["brand"]:
+            match=False;
+            
+        if "price_min" in filters and product.get("price",0) < filters["price_min"]:
+            match=False; 
+            
+        if "price_max" in filters and product.get("price",0) > filters["price_max"]:
+            match=False;      
+        
+        if match:
+            result.append(product);
+            
+    return result;
+    
+if __name__ == "__main__":
+    addProducts({"name":"Sony","category":"Electronics","brand":"Sony","price":450});
+    
+    filters={
+        "category":"Electronics",
+        "brand":"Sony",
+        "price_min":100,
+        "price_max":500
+    }
+    
+    filtered=filterProducts(filters);
+    print("filtered products:")
+    for product in filtered:
+        print(product);
+    
+print ('Hello World')
